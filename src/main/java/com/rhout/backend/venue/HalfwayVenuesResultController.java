@@ -23,7 +23,7 @@ public class HalfwayVenuesResultController {
         return "Hello World";
     }
 
-    @GetMapping("/api/venues/halfway/top-rated")
+    @GetMapping("/api/v1/venues/halfway/top-rated")
     public List<Venue> getTopRatedHalfwayVenues(@RequestParam String address1, @RequestParam String address2) {
         HalfwayVenuesResult venues = new HalfwayVenuesResult.Builder(googleConfig.getContext())
                 .buildCoordinates(address1, address2)

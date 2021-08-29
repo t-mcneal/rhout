@@ -3,6 +3,7 @@ package com.rhout.backend.venue;
 import com.rhout.backend.config.GoogleConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class HalfwayVenuesResultController {
         return "Hello World";
     }
 
-    @GetMapping("/api/v1/venues/halfway/top-rated")
+    @PostMapping("/api/v1/venues/halfway/top-rated")
     public List<Venue> getTopRatedHalfwayVenues(@RequestParam String address1, @RequestParam String address2) {
         HalfwayVenuesResult venues = new HalfwayVenuesResult.Builder(googleConfig.getContext())
                 .buildCoordinates(address1, address2)

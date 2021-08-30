@@ -3,14 +3,13 @@ package com.rhout.backend.venue;
 import com.rhout.backend.config.GoogleConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class HalfwayVenuesResultController {
     private final GoogleConfig googleConfig;
 
@@ -25,7 +24,9 @@ public class HalfwayVenuesResultController {
     }
 
     @PostMapping("/api/v1/venues/halfway/top-rated")
-    public List<Venue> getTopRatedHalfwayVenues(@RequestParam String address1, @RequestParam String address2) {
+    public List<Venue> getTopRatedHalfwayVenues(@RequestBody Map<String, String> json) {
+        String address1 = json.get("address1");
+        String address2 = json.get("address2");
         HalfwayVenuesResult venues = new HalfwayVenuesResult.Builder(googleConfig.getContext())
                 .buildCoordinates(address1, address2)
                 .findNearbyVenues("music venue")

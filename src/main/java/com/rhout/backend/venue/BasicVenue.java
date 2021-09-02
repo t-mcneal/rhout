@@ -48,6 +48,16 @@ public class BasicVenue implements Venue, Comparable<BasicVenue> {
     }
 
     @Override
+    public String toString() {
+        return "BasicVenue{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, name, address, rating);
     }

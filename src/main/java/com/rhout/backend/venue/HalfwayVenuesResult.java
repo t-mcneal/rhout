@@ -77,7 +77,6 @@ public class HalfwayVenuesResult {
         this.midpoint = builder.midpoint;
         this.nearbyVenues = builder.nearbyVenues;
         this.topRatedVenues = builder.topRatedVenues;
-        builder.context.shutdown();
     }
 
     public static class Builder {
@@ -112,16 +111,16 @@ public class HalfwayVenuesResult {
             String[] addresses = {address1, address2};
             Coordinate[] coordinates = new Coordinate[2];
             try {
-                double lon;
                 double lat;
+                double lng;
                 for (int i = 0; i < addresses.length; i++) {
                     GeocodingResult[] results = GeocodingApi.geocode(this.context, addresses[i]).await();
-                    lon = results[0].geometry.location.lng;
                     lat = results[0].geometry.location.lat;
-                    coordinates[i] = new Coordinate(lon, lat);
+                    lng = results[0].geometry.location.lng;
+                    coordinates[i] = new Coordinate(lat, lng);
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                throw new IllegalArgumentException(e);
             }
             this.coordA = coordinates[0];
             this.coordB = coordinates[1];
@@ -131,9 +130,9 @@ public class HalfwayVenuesResult {
 
         /**
          * Specifies a query of text to search using Google Maps {@link com.google.maps.PlacesApi}.
-         * The search result is a {@link java.util.List} of JSON objects containing data for query related places within 2000
-         * meters (approximately 1.2 miles) of the midpoint coordinate. The JSON data is, then, parsed
-         * and stored as {@link com.rhout.backend.venue.Venue} objects in a new {@code List}.
+         * The search result is a {@link java.util.List} of JSON objects containing data for query related
+         * places with a bias radius of 805 meters (approximately 0.5 miles) of the midpoint coordinate. The JSON
+         * data is, then, parsed and stored as {@link com.rhout.backend.venue.Venue} objects in a new {@code List}.
          *
          * @param searchQuery Text describing a type of place to search.
          * @return Returns this {@code HalfwayVenuesBuilder} for call chaining.
@@ -146,7 +145,7 @@ public class HalfwayVenuesResult {
                 }
                 PlacesSearchResult[] placesResults = PlacesApi.textSearchQuery(this.context,
                         searchQuery, this.midpoint)
-                        .radius(2000)
+                        .radius(805)
                         .await()
                         .results;
 
@@ -160,7 +159,7 @@ public class HalfwayVenuesResult {
                     }
                 }
             } catch(Exception e) {
-                System.out.println(e);
+                throw new IllegalArgumentException(e);
             }
             return this;
         }

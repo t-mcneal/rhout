@@ -1,14 +1,14 @@
 import React from 'react';
-import { Form } from './form/Form'
+import FormContainer from './form/FormContainer'
 
 function Main() {
     return (
         <main>
             <h2>Top Rated Venues</h2>
 
-            <p>Get the 5 highest-rated music venues halfway between two addresses.</p>
+            <p>Find the 5 highest-rated music venues halfway between two addresses.</p>
 
-            <Form />
+            <FormContainer />
         </main>
     )
 }

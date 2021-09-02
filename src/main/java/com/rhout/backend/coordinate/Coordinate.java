@@ -4,14 +4,22 @@ import com.google.maps.model.LatLng;
 
 public class Coordinate extends LatLng {
 
-    public Coordinate(double lon, double lat) {
-        super(lat, lon);
+    public Coordinate(double lat, double lng) {
+        super(lat, lng);
     }
 
     public double getLatitude() { return lat; }
 
     public double getLongitude() {
         return lng;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinate{" +
+                "lat='" + lat + '\'' +
+                ", lng='" + lng + '\'' +
+                '}';
     }
 
     @Override

@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../../button/Button';
 import PropTypes from 'prop-types';
 
-function Form(props) {
+function TopVenuesForm(props) {
     return (
         <form id="topRatedForm" onSubmit={props.handleSubmit}>
             <label htmlFor="txtAddress1">Address 1</label>
@@ -28,9 +28,9 @@ function Form(props) {
     );
 }
 
-Form.propTypes = {
+TopVenuesForm.propTypes = {
     address1: PropTypes.string,
     address2: PropTypes.string
 }
 
-export default Form;
+export default TopVenuesForm;

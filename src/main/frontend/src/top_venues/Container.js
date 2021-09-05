@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Form from './Form';
-import TopVenuesDisplay from '../display/TopVenuesDisplay';
+import TopVenuesForm from './form/Form';
+import TopVenuesDisplay from './display/Display';
 import ProgressBarContainer from '../progress_bar/ProgressBarContainer';
 import axios from 'axios';
 
-function FormContainer() {
+function TopVenuesContainer() {
     const [addresses, setAddresses] = useState({
         address1:'', 
         address2:''
@@ -34,7 +34,7 @@ function FormContainer() {
                 
                 <p>Find the top 5 highest-rated music venues halfway between two addresses.</p>
 
-                <Form 
+                <TopVenuesForm 
                     address1={addresses.address1} 
                     address2={addresses.address2} 
                     handleChange={handleAddressChange} 
@@ -52,4 +52,4 @@ function FormContainer() {
     );
 }
 
-export default FormContainer;
+export default TopVenuesContainer;

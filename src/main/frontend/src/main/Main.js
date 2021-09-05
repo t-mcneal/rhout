@@ -1,10 +1,10 @@
 import React from 'react';
-import FormContainer from '../form/FormContainer.js'
+import TopVenuesContainer from '../top_venues/Container.js'
 
 function Main() {
     return (
         <main>
-            <FormContainer />
+            <TopVenuesContainer />
         </main>
     )
 }

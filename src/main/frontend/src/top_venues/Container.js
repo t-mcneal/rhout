@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TopVenuesForm from './form/Form';
 import TopVenuesDisplay from './display/Display';
-import ProgressBarContainer from '../progress_bar/ProgressBarContainer';
+import ProgressBarContainer from '../progress_bar/Container';
 import axios from 'axios';
 
 function TopVenuesContainer() {
@@ -28,7 +28,7 @@ function TopVenuesContainer() {
     }
 
     return (
-        <div id="form-container">
+        <div id="top-venues-container">
             <section>
                 <h2>Music Venues</h2>
                 

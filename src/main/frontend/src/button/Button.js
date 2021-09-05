@@ -2,9 +2,7 @@ import React from 'react';
 
 function Button(props) {
     return (
-        <button type={props.type}>
-            {props.value}
-        </button>
+        <button type={props.type}>{props.value}</button>
     );
 }
 

@@ -26,7 +26,6 @@ function TopVenuesContainer() {
         .catch(error => console.log(error));
         setIsSearching(false);
         setTopVenues(response.data);
-        console.log(response);
     }
 
     return (
@@ -42,13 +41,13 @@ function TopVenuesContainer() {
                         address2={addresses.address2} 
                         handleChange={handleAddressChange} 
                         handleSubmit={handleSubmit} />
+
+                    {isSearching && <ProgressBarContainer isActive={isSearching} />}
                 </div>
-        
+
                 <img id="imgFestival" src={musicFestivalImg} alt="Music Festival"/>   
             </section>
             <section>
-                <ProgressBarContainer isActive={isSearching} />
-
                 <TopVenuesDisplay topVenues={topVenues} />
             </section>
         </div>

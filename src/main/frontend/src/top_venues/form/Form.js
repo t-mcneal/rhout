@@ -13,7 +13,8 @@ function TopVenuesForm(props) {
                     id="txtAddress1" 
                     name="address1" 
                     value={props.address1}
-                    onChange={props.handleChange} />
+                    onChange={props.handleChange} 
+                    required/>
             </div>
             <br />
             <label htmlFor="txtAddress2">Address 2</label>
@@ -23,7 +24,8 @@ function TopVenuesForm(props) {
                     id="txtAddress2" 
                     name="address2" 
                     value={props.address2}
-                    onChange={props.handleChange} />
+                    onChange={props.handleChange} 
+                    required/>
             </div> 
             <br />
             <Button type="submit" value="Search Top Rated"/>

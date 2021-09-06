@@ -8,6 +8,11 @@
     width: 50%;
 }
 
+#formContainer .progress-bar {
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
 #imgFestival {
     display: inline-block;
     width: 50%;

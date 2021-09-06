@@ -20,7 +20,7 @@ nav {
 }
 
 #rhoutLink:hover {
-    font-size: 20px;
+    font-size: 1.2em;
 }
 
 #rhoutLink:visited {
@@ -32,10 +32,26 @@ nav {
     background-color: #E97451;
     color: #ffffff;
     text-align: center;
-    padding: 25px;
+    padding: 60px;
 }
+
+#rhoutBox h1 {
+    font-style: oblique;
+}
+/* 
+#rhoutBox p {
+    background-color: black;
+    background-image: linear-gradient(45deg, black, gray);
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+    font-weight: bold;
+} */
 
 #rhoutBox p {
     font-size: 1em;
-    margin-top: -10px;
+    margin-top: -20px;
+    font-weight: 500;
 }

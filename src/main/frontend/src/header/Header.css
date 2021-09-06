@@ -1,0 +1,41 @@
+nav {
+    background-color:#28282B;
+    padding: 5px;
+}
+
+#rhoutLink {
+    margin: 10px;
+    color: white;
+    font-style: oblique;
+    font-weight: bold;
+}
+
+
+#rhoutLink:link {
+    transition-duration: 0.3s;
+}
+
+#rhoutLink:active {
+    color: #E97451;
+}
+
+#rhoutLink:hover {
+    font-size: 20px;
+}
+
+#rhoutLink:visited {
+    color: none;
+}
+
+#rhoutBox {
+    font-size: 1.5em;
+    background-color: #E97451;
+    color: #ffffff;
+    text-align: center;
+    padding: 25px;
+}
+
+#rhoutBox p {
+    font-size: 1em;
+    margin-top: -10px;
+}

@@ -1,0 +1,53 @@
+#topRatedForm {
+    margin-top: 30px;
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type=text] {
+    font-size: 15px;
+    border: none;
+    text-decoration: none;
+    -moz-appearance: textfield;
+    width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+}
+
+input[type=text]:focus {
+    outline: none !important;
+}
+
+.input-wrapper {
+    border: solid;
+    border-width: thin;
+    border-color: #D3D3D3;
+    background-color: #ffffff;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+}
+
+@media (max-width: 1007px) {
+    #topRatedForm {
+        width: 80%;
+    }
+}
+
+@media (max-width: 640px) {
+    #topRatedForm {
+        width: 80%;
+    }
+
+    .input-wrapper {
+        width: 100%;
+    }
+}

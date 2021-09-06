@@ -1,0 +1,73 @@
+#topVenuesDisplay {
+    margin-top: 30px;
+}
+
+.place-card {
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: thin;
+    width: 40%;
+    margin: 10px;
+    font-size: .8em;
+    padding: 30px;
+    border-radius: 10px;
+    display: inline-block;
+    line-height: 2em;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.place-card:hover {
+    transform: scale(1.02);
+    transition-duration: 0.3s;
+}
+
+.place-name {
+    color: #E97451;
+    font-size: 1.4em;
+}
+
+.place-link {
+    color: #1e90ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.place-link:visited {
+    color: #1e90ff;
+}
+
+.place-link:hover {
+    text-decoration: underline;
+}
+
+.star {
+    display: inline-block;
+    font-size: 1.2em;
+}
+
+.star-full {
+    color: #FFA500;
+}
+
+.star-half {
+    background: linear-gradient(to right, #FFA500 50%, #DCDCDC 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.star-empty {
+    color: #DCDCDC;
+}
+
+.five-stars {
+    margin-left: 5px;
+}
+
+@media (max-width: 1007px) {
+    .place-card {
+        width: 80%;
+    }
+}
+
+

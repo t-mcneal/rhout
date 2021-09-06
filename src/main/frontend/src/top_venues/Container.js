@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import TopVenuesForm from './form/Form';
 import TopVenuesDisplay from './display/Display';
 import ProgressBarContainer from '../progress_bar/Container';
+import musicFestivalImg from '../images/music_festival.jpg';
 import axios from 'axios';
+import './Container.css';
 
 function TopVenuesContainer() {
     const [addresses, setAddresses] = useState({
@@ -28,23 +30,25 @@ function TopVenuesContainer() {
     }
 
     return (
-        <div id="top-venues-container">
+        <div id="topVenuesContainer">
             <section>
-                <h2>Music Venues</h2>
-                
-                <p>Find the top 5 highest-rated music venues halfway between two addresses.</p>
-
-                <TopVenuesForm 
-                    address1={addresses.address1} 
-                    address2={addresses.address2} 
-                    handleChange={handleAddressChange} 
-                    handleSubmit={handleSubmit} 
-                    />
+                <div id="formContainer">
+                    <h2>Music Venues</h2>
+                    
+                    <p>Find the top 5 highest-rated music venues halfway between two locations.</p>
+    
+                    <TopVenuesForm 
+                        address1={addresses.address1} 
+                        address2={addresses.address2} 
+                        handleChange={handleAddressChange} 
+                        handleSubmit={handleSubmit} 
+                        />
+                </div>
+        
+                <img id="imgFestival" src={musicFestivalImg} alt="Music Festival"/>   
             </section>
             <section>
                 <ProgressBarContainer isActive={isSearching} />
-
-                <h2>Top 5 Venues</h2>
 
                 <TopVenuesDisplay topVenues={topVenues} />
             </section>

@@ -41,8 +41,7 @@ function TopVenuesContainer() {
                         address1={addresses.address1} 
                         address2={addresses.address2} 
                         handleChange={handleAddressChange} 
-                        handleSubmit={handleSubmit} 
-                        />
+                        handleSubmit={handleSubmit} />
                 </div>
         
                 <img id="imgFestival" src={musicFestivalImg} alt="Music Festival"/>   

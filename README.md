@@ -24,7 +24,20 @@ and Google Maps API.
 
    Download a zip of the Rhout project from GitHub or clone the repository.
 
+3. **Add an API KEY**
+   
+   An API key is needed to access Google Maps API. Visit [Google Maps Platform](https://developers.google.com/maps) 
+   to set up an account and API key. Then, create an `apikey.properties` file in the 
+   project's root directory. Add the text below to the file, replacing `API_KEY` with a
+   Google Maps API key, and save the file. 
+   
+   ```
+   GMAP_KEY = API_KEY
+   ```
 
+   Make sure to include the `apikey.properties` file in `.gitignore` to secure 
+   your API key from version control.
+   
 ## Usage
 
 Next, you will need to start the local servers for the frontend and backend using the
@@ -44,7 +57,7 @@ command line.
 
 ## Demo
 
-Click this [link]() to see a demo.
+Click this [link](https://youtu.be/0zG4X2-0jjU) to watch a demo.
 
 ![Rhout Screenshot](https://github.com/t-mcneal/rhout/blob/master/readmeimages/rhout_screenshot.png)
 

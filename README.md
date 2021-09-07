@@ -51,7 +51,7 @@ Click this [link]() to see a demo.
 
 ## License
 
-[MIT](https://github.com/t-mcneal/miurl/blob/master/LICENSE)
+[MIT](https://github.com/t-mcneal/rhout/blob/master/LICENSE)
 
 
 

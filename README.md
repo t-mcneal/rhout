@@ -24,7 +24,7 @@ and Google Maps API.
 
    Download a zip of the Rhout project from GitHub or clone the repository.
 
-3. **Add an API KEY**
+3. **Add an API Key**
    
    An API key is needed to access Google Maps API. Visit [Google Maps Platform](https://developers.google.com/maps) 
    to set up an account and API key. Then, create an `apikey.properties` file in the 

@@ -6,7 +6,9 @@ import com.google.maps.GeoApiContext;
 import javax.annotation.PreDestroy;
 import java.util.Properties;
 
-
+/**
+ * Configures a {@link com.google.maps.GeoApiContext} needed to access Google Maps API.
+ */
 @Configuration
 public class GoogleConfig {
     private final GeoApiContext context;
@@ -26,6 +28,5 @@ public class GoogleConfig {
     @PreDestroy
     public void shutdown() {
         context.shutdown();
-        System.out.println("GeoApiContext singleton was shutdown properly.");
     }
 }

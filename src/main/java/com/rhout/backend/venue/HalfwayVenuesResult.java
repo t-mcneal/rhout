@@ -22,52 +22,35 @@ public class HalfwayVenuesResult {
     private final List<Venue> topRatedVenues;
 
     /**
-     * Returns a {@link com.rhout.backend.coordinate.Coordinate} for the first address
+     * @return A {@link com.rhout.backend.coordinate.Coordinate} for the first address
      * parameter used to during the build process.
-     * See {@link HalfwayVenuesResult.Builder}.
-     *
-     * @return A {@code Coordinate}
      */
     public Coordinate getCoordinateA() { return coordA; }
 
     /**
-     * Returns a {@link com.rhout.backend.coordinate.Coordinate} for the second address
+     * @return A {@link com.rhout.backend.coordinate.Coordinate} for the second address
      * parameter used to during the build process.
-     * See {@link HalfwayVenuesResult.Builder}.
-     *
-     * @return A {@code Coordinate.
      */
     public Coordinate getCoordinateB() { return coordB; }
 
     /**
-     * Returns a {@link com.rhout.backend.coordinate.Coordinate} for the halfway location.
-     *
-     * @return A {@code Coordinate}.
+     * @return A {@link com.rhout.backend.coordinate.Coordinate} for the halfway location.
      */
     public Coordinate getMidpoint() { return midpoint; }
 
     /**
-     * Returns a {@link java.util.List} of {@link com.rhout.backend.venue.Venue} objects
+     * @return A {@link java.util.List} of {@link com.rhout.backend.venue.Venue} objects
      * that contain data for places that are halfway between two locations.
-     *
-     * @return A {@code List} containing {@code Venue} objects.
      */
     public List<Venue> getVenues() { return nearbyVenues; }
 
-
     /**
-     * Returns the number of total venues contained in this {@code HalfwayVenuesResult}, resulting
-     * from a call to the Google Maps {@link com.google.maps.PlacesApi}.
-     *
-     * @return Number of total venues.
+     * @return Number of total venues contained in this {@code HalfwayVenuesResult}
      */
     public int getNumOfVenues() { return nearbyVenues.size(); }
 
     /**
-     * Returns a {@link java.util.List} of {@link com.rhout.backend.venue.Venue} objects
-     * that are the top rated venues.
-     *
-     * @return A {@code List} containing top rated {@code Venue} objects.
+     * @return A {@link java.util.List} containing top rated {@link com.rhout.backend.venue.Venue} objects.
      */
     public List<Venue> getTopRated() { return topRatedVenues; }
 
@@ -110,9 +93,9 @@ public class HalfwayVenuesResult {
         public Builder buildCoordinates(String address1, String address2) {
             String[] addresses = {address1, address2};
             Coordinate[] coordinates = new Coordinate[2];
+            double lat;
+            double lng;
             try {
-                double lat;
-                double lng;
                 for (int i = 0; i < addresses.length; i++) {
                     GeocodingResult[] results = GeocodingApi.geocode(this.context, addresses[i]).await();
                     lat = results[0].geometry.location.lat;
@@ -131,18 +114,18 @@ public class HalfwayVenuesResult {
         /**
          * Specifies a query of text to search using Google Maps {@link com.google.maps.PlacesApi}.
          * The search result is a {@link java.util.List} of JSON objects containing data for query related
-         * places with a bias radius of 805 meters (approximately 0.5 miles) of the midpoint coordinate. The JSON
-         * data is, then, parsed and stored as {@link com.rhout.backend.venue.Venue} objects in a new {@code List}.
+         * places, with a bias radius of 805 meters (approximately 0.5 miles) of the midpoint coordinate. The JSON
+         * data is parsed and stored as {@link com.rhout.backend.venue.Venue} objects in a new {@code List}.
          *
          * @param searchQuery Text describing a type of place to search.
          * @return Returns this {@code HalfwayVenuesBuilder} for call chaining.
          */
         public Builder findNearbyVenues(String searchQuery) {
             try {
-                // search venues near midpoint coordinate
                 if (this.midpoint == null) {
                     throw new IllegalStateException("Must calculate midpoint before finding nearby venues.");
                 }
+                // search venues near midpoint coordinate
                 PlacesSearchResult[] placesResults = PlacesApi.textSearchQuery(this.context,
                         searchQuery, this.midpoint)
                         .radius(805)

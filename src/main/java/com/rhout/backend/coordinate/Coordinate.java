@@ -2,6 +2,9 @@ package com.rhout.backend.coordinate;
 
 import com.google.maps.model.LatLng;
 
+/**
+ * A place on Earth, represented by a latitude/longitude pair.
+ */
 public class Coordinate extends LatLng {
 
     public Coordinate(double lat, double lng) {
@@ -10,9 +13,7 @@ public class Coordinate extends LatLng {
 
     public double getLatitude() { return lat; }
 
-    public double getLongitude() {
-        return lng;
-    }
+    public double getLongitude() { return lng; }
 
     @Override
     public String toString() {

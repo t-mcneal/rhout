@@ -121,10 +121,10 @@ public class HalfwayVenuesResult {
          * @return Returns this {@code HalfwayVenuesBuilder} for call chaining.
          */
         public Builder findNearbyVenues(String searchQuery) {
+            if (this.midpoint == null) {
+                throw new IllegalStateException("Must calculate midpoint before finding nearby venues.");
+            }
             try {
-                if (this.midpoint == null) {
-                    throw new IllegalStateException("Must calculate midpoint before finding nearby venues.");
-                }
                 // search venues near midpoint coordinate
                 PlacesSearchResult[] placesResults = PlacesApi.textSearchQuery(this.context,
                         searchQuery, this.midpoint)

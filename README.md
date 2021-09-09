@@ -51,13 +51,8 @@ command line.
    **Frontend**
 
    Open a second command line window. Then, navigate to the project directory `/src/main/frontend` 
-   and enter the following:
-   ```
-   $ npm install
-   $ npm start
-   ```
-   This step installs the React dependency and starts a local server on `http://localhost:3000/`. 
-   The application will automatically open in a default browser.
+   and enter `$ npm install`, then `$ npm start`. This step installs the React dependency and starts 
+   a local server on `http://localhost:3000/`. The application will automatically open in a default browser.
 
 
 ## Demo

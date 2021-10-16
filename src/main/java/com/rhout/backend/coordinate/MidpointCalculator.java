@@ -1,5 +1,8 @@
 package com.rhout.backend.coordinate;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class MidpointCalculator {
 
     private MidpointCalculator() {}
@@ -9,9 +12,12 @@ public class MidpointCalculator {
      * @param B A coordinate containing latitude/longitude
      * @return A midpoint between two coordinates
      */
-    public static Coordinate calculate(Coordinate A, Coordinate B) {
-        double lat3 = (A.getLatitude() + B.getLatitude()) / 2;
-        double lng3 = (A.getLongitude() + B.getLongitude()) / 2;
-        return new Coordinate(lat3, lng3);
+    public static Map<String, Double> calculate(Coordinate A, Coordinate B) {
+        Map<String, Double> midpointCoordinate = new HashMap<>();
+        double lat = (A.getLatitude() + B.getLatitude()) / 2;
+        double lng = (A.getLongitude() + B.getLongitude()) / 2;
+        midpointCoordinate.put("latitude", lat);
+        midpointCoordinate.put("longitude", lng);
+        return midpointCoordinate;
     }
 }

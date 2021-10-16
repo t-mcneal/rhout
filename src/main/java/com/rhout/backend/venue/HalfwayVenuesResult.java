@@ -1,9 +1,6 @@
 package com.rhout.backend.venue;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
@@ -12,6 +9,7 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.PlacesSearchResult;
 
 import com.rhout.backend.coordinate.Coordinate;
+import com.rhout.backend.coordinate.GoogleCoordinate;
 import com.rhout.backend.coordinate.MidpointCalculator;
 
 public class HalfwayVenuesResult {
@@ -92,7 +90,7 @@ public class HalfwayVenuesResult {
          */
         public Builder buildCoordinates(String address1, String address2) {
             String[] addresses = {address1, address2};
-            Coordinate[] coordinates = new Coordinate[2];
+            Coordinate[] coordinates = new GoogleCoordinate[2];
             double lat;
             double lng;
             try {
@@ -100,14 +98,15 @@ public class HalfwayVenuesResult {
                     GeocodingResult[] results = GeocodingApi.geocode(this.context, addresses[i]).await();
                     lat = results[0].geometry.location.lat;
                     lng = results[0].geometry.location.lng;
-                    coordinates[i] = new Coordinate(lat, lng);
+                    coordinates[i] = new GoogleCoordinate(lat, lng);
                 }
             } catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }
             this.coordA = coordinates[0];
             this.coordB = coordinates[1];
-            this.midpoint = MidpointCalculator.calculate(this.coordA, this.coordB);
+            Map<String, Double> midpoint = MidpointCalculator.calculate(this.coordA, this.coordB);
+            this.midpoint = new GoogleCoordinate(midpoint.get("latitude"), midpoint.get("longitude"));
             return this;
         }
 
@@ -127,7 +126,7 @@ public class HalfwayVenuesResult {
             try {
                 // search venues near midpoint coordinate
                 PlacesSearchResult[] placesResults = PlacesApi.textSearchQuery(this.context,
-                        searchQuery, this.midpoint)
+                        searchQuery, (GoogleCoordinate) this.midpoint)
                         .radius(805)
                         .await()
                         .results;

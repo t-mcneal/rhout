@@ -9,7 +9,7 @@ import com.rhout.backend.coordinate.Coordinate;
 import com.rhout.backend.coordinate.GoogleCoordinate;
 import com.rhout.backend.place.Place;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,14 +20,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class GoogleApiRequestServiceTest {
-    GoogleApiRequestService googleApiRequestService;
-    GoogleApiRequest<GeocodingResult> mockGeocodingGoogleApiRequest;
-    GoogleApiRequest<PlacesSearchResult> mockPlacesGoogleApiRequest;
+    static GoogleApiRequestService googleApiRequestService;
+    static GoogleApiRequest<GeocodingResult> mockGeocodingGoogleApiRequest;
+    static GoogleApiRequest<PlacesSearchResult> mockPlacesGoogleApiRequest;
 
 
-    @BeforeEach
+    @BeforeAll
     @SuppressWarnings("unchecked")
-    public void setup() {
+    public static void setup() {
 
         // Mock the Google Config
         GoogleConfig mockGoogleConfig = mock(GoogleConfig.class);

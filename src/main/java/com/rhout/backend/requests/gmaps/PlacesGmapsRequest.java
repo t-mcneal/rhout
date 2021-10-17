@@ -23,12 +23,12 @@ public class PlacesGmapsRequest implements GmapsRequest<PlacesSearchResult> {
 
     public PlacesSearchResult[] execute() {
         try {
-            PlacesSearchResult[] placesResults = PlacesApi.textSearchQuery(context,
+            PlacesSearchResult[] placesResult = PlacesApi.textSearchQuery(context,
                     searchQuery, (GoogleCoordinate) coordinate)
                     .radius(radius)
                     .await()
                     .results;
-            return placesResults;
+            return placesResult;
         } catch(Exception e) {
             throw new IllegalArgumentException(e);
         }

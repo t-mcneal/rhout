@@ -1,14 +1,14 @@
-package com.rhout.backend.venue;
+package com.rhout.backend.place;
 
 import java.util.Objects;
 
-public class BasicVenue implements Venue, Comparable<BasicVenue> {
+public class Venue implements Place, Comparable<Venue> {
     private final String id;
     private String name;
     private String address;
     private double rating;
 
-    public BasicVenue(String id, String name, String address, double rating) {
+    public Venue(String id, String name, String address, double rating) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -43,13 +43,13 @@ public class BasicVenue implements Venue, Comparable<BasicVenue> {
         rating = newRating;
     }
 
-    public int compareTo(BasicVenue other) {
+    public int compareTo(Venue other) {
         return Double.compare(this.rating, other.getRating());
     }
 
     @Override
     public String toString() {
-        return "BasicVenue{" +
+        return "Venue{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
@@ -65,7 +65,7 @@ public class BasicVenue implements Venue, Comparable<BasicVenue> {
     @Override
     public boolean equals(Object o) {
         if (o != null && o.getClass() == getClass()) {
-            return id.equals(((BasicVenue) o).getId()) && name.equals(((BasicVenue) o).getName());
+            return id.equals(((Venue) o).getId()) && name.equals(((Venue) o).getName());
         }
         return false;
     }

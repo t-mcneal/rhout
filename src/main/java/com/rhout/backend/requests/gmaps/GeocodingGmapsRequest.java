@@ -16,8 +16,8 @@ public class GeocodingGmapsRequest implements GmapsRequest<GeocodingResult> {
 
     public GeocodingResult[] execute() {
         try {
-            GeocodingResult[] geocodingResults = GeocodingApi.geocode(context, address).await();
-            return geocodingResults;
+            GeocodingResult[] geocodingResult = GeocodingApi.geocode(context, address).await();
+            return geocodingResult;
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

@@ -8,49 +8,57 @@ import com.rhout.backend.coordinate.GoogleCoordinate;
 import com.rhout.backend.requests.gmaps.GeocodingGmapsRequest;
 import com.rhout.backend.requests.gmaps.GmapsRequest;
 import com.rhout.backend.requests.gmaps.PlacesGmapsRequest;
-import com.rhout.backend.venue.BasicVenue;
-import com.rhout.backend.venue.Venue;
+import com.rhout.backend.place.Venue;
+import com.rhout.backend.place.Place;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleApiRequestService implements RequestService<Venue> {
-    private GoogleConfig googleConfig;
+public class GoogleApiRequestService implements RequestService {
+    private final GoogleConfig googleConfig;
+    protected GoogleApiRequest<GeocodingResult> geocodingGoogleApiRequest;
+    protected GoogleApiRequest<PlacesSearchResult> placesGoogleApiRequest;
 
     @Autowired
-    public GoogleApiRequestService(GoogleConfig googleConfig) {
+    public GoogleApiRequestService(GoogleConfig googleConfig,
+                                   GoogleApiRequest<GeocodingResult> geocodingGoogleApiRequest,
+                                   GoogleApiRequest<PlacesSearchResult> placesGoogleApiRequest) {
         this.googleConfig = googleConfig;
+        this.geocodingGoogleApiRequest = geocodingGoogleApiRequest;
+        this.placesGoogleApiRequest = placesGoogleApiRequest;
     }
 
     public Coordinate getCoordinate(String address) {
         DataObject<GeocodingResult> dataObject = new DataObject<>();
         GmapsRequest<GeocodingResult> request = new GeocodingGmapsRequest(googleConfig.getContext(), address);
-        GoogleApiRequest<GeocodingResult> googleApiRequest = new GoogleApiRequest<>(request, dataObject);
-        googleApiRequest.execute();
+        geocodingGoogleApiRequest.setGmapsRequest(request);
+        geocodingGoogleApiRequest.setDataObject(dataObject);
+        geocodingGoogleApiRequest.execute();
 
-        GeocodingResult[] data = googleApiRequest.getData();
+        GeocodingResult[] data = geocodingGoogleApiRequest.getData();
         double lat = data[0].geometry.location.lat;
         double lng = data[0].geometry.location.lng;
         return new GoogleCoordinate(lat, lng);
     }
 
-    public List<Venue> getPlaces(String searchQuery, Coordinate coordinate, int radius) {
+    public List<Place> getPlaces(String searchQuery, Coordinate coordinate, int radius) {
         DataObject<PlacesSearchResult> dataObject = new DataObject<>();
         GmapsRequest<PlacesSearchResult> request = new PlacesGmapsRequest(googleConfig.getContext(),
-                searchQuery, (GoogleCoordinate) coordinate, radius);
-        GoogleApiRequest<PlacesSearchResult> googleApiRequest = new GoogleApiRequest<>(request, dataObject);
-        googleApiRequest.execute();
+                searchQuery, coordinate, radius);
+        placesGoogleApiRequest.setGmapsRequest(request);
+        placesGoogleApiRequest.setDataObject(dataObject);
+        placesGoogleApiRequest.execute();
 
-        PlacesSearchResult[] data = googleApiRequest.getData();
-        List<Venue> nearbyVenues = new ArrayList<>();
+        PlacesSearchResult[] data = placesGoogleApiRequest.getData();
+        List<Place> nearbyPlaces = new ArrayList<>();
         for (PlacesSearchResult venue : data) {
             if (venue.businessStatus.equals("OPERATIONAL")) {
-                nearbyVenues.add(new BasicVenue(venue.placeId,
+                nearbyPlaces.add(new Venue(venue.placeId,
                         venue.name,
                         venue.formattedAddress,
                         venue.rating));
             }
         }
-        return nearbyVenues;
+        return nearbyPlaces;
     }
 }

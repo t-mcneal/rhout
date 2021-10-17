@@ -1,4 +1,4 @@
-package com.rhout.backend.venue;
+package com.rhout.backend.place;
 
 import com.rhout.backend.config.GoogleConfig;
 import org.springframework.beans.factory.annotation.Autowired;

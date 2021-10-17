@@ -1,4 +1,4 @@
-package com.rhout.backend.venue;
+package com.rhout.backend.place;
 
 import java.util.*;
 
@@ -16,8 +16,8 @@ public class HalfwayVenuesResult {
     private final Coordinate coordA;
     private final Coordinate coordB;
     private final Coordinate midpoint;
-    private final List<Venue> nearbyVenues;
-    private final List<Venue> topRatedVenues;
+    private final List<Place> nearbyVenues;
+    private final List<Place> topRatedVenues;
 
     /**
      * @return A {@link com.rhout.backend.coordinate.Coordinate} for the first address
@@ -37,10 +37,10 @@ public class HalfwayVenuesResult {
     public Coordinate getMidpoint() { return midpoint; }
 
     /**
-     * @return A {@link java.util.List} of {@link com.rhout.backend.venue.Venue} objects
+     * @return A {@link java.util.List} of {@link Place} objects
      * that contain data for places that are halfway between two locations.
      */
-    public List<Venue> getVenues() { return nearbyVenues; }
+    public List<Place> getVenues() { return nearbyVenues; }
 
     /**
      * @return Number of total venues contained in this {@code HalfwayVenuesResult}
@@ -48,9 +48,9 @@ public class HalfwayVenuesResult {
     public int getNumOfVenues() { return nearbyVenues.size(); }
 
     /**
-     * @return A {@link java.util.List} containing top rated {@link com.rhout.backend.venue.Venue} objects.
+     * @return A {@link java.util.List} containing top rated {@link Place} objects.
      */
-    public List<Venue> getTopRated() { return topRatedVenues; }
+    public List<Place> getTopRated() { return topRatedVenues; }
 
     private HalfwayVenuesResult(Builder builder) {
         this.coordA = builder.coordA;
@@ -61,8 +61,8 @@ public class HalfwayVenuesResult {
     }
 
     public static class Builder {
-        private final List<Venue> nearbyVenues = new ArrayList<>();
-        private final List<Venue> topRatedVenues = new ArrayList<>();
+        private final List<Place> nearbyVenues = new ArrayList<>();
+        private final List<Place> topRatedVenues = new ArrayList<>();
         private final GeoApiContext context;
         private Coordinate coordA;
         private Coordinate coordB;
@@ -113,8 +113,8 @@ public class HalfwayVenuesResult {
         /**
          * Specifies a query of text to search using Google Maps {@link com.google.maps.PlacesApi}.
          * The search result is a {@link java.util.List} of JSON objects containing data for query related
-         * places, with a bias radius of 805 meters (approximately 0.5 miles) of the midpoint coordinate. The JSON
-         * data is parsed and stored as {@link com.rhout.backend.venue.Venue} objects in a new {@code List}.
+         * places, with a bias radius of 1600 meters (approximately 1 mile) of the midpoint coordinate. The JSON
+         * data is parsed and stored as {@link Place} objects in a new {@code List}.
          *
          * @param searchQuery Text describing a type of place to search.
          * @return Returns this {@code HalfwayVenuesBuilder} for call chaining.
@@ -127,14 +127,14 @@ public class HalfwayVenuesResult {
                 // search venues near midpoint coordinate
                 PlacesSearchResult[] placesResults = PlacesApi.textSearchQuery(this.context,
                         searchQuery, (GoogleCoordinate) this.midpoint)
-                        .radius(805)
+                        .radius(1600)
                         .await()
                         .results;
 
-                // create list of venue objects based on search JSON results
+                // create list of place objects based on search JSON results
                 for (PlacesSearchResult venue : placesResults) {
                     if (venue.businessStatus.equals("OPERATIONAL")) {
-                        this.nearbyVenues.add(new BasicVenue(venue.placeId,
+                        this.nearbyVenues.add(new Venue(venue.placeId,
                                 venue.name,
                                 venue.formattedAddress,
                                 venue.rating));
@@ -161,9 +161,9 @@ public class HalfwayVenuesResult {
                 throw new IllegalArgumentException("Number of total halfway venues is " +
                         this.nearbyVenues.size() + ", which is less than a top rated amount of " + amount);
             }
-            PriorityQueue<BasicVenue> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
-            for (Venue venue : this.nearbyVenues) {
-                maxHeap.add((BasicVenue) venue);
+            PriorityQueue<Venue> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+            for (Place venue : this.nearbyVenues) {
+                maxHeap.add((Venue) venue);
             }
             for (int i = 0; i < amount; i++) {
                 this.topRatedVenues.add(maxHeap.remove());

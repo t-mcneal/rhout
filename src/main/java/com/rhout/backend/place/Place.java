@@ -1,7 +1,7 @@
-package com.rhout.backend.venue;
+package com.rhout.backend.place;
 
 
-public interface Venue {
+public interface Place {
 
     public String getId();
 

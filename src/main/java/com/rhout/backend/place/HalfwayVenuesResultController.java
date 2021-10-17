@@ -1,4 +1,4 @@
-package com.rhout.backend.venue;
+package com.rhout.backend.place;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class HalfwayVenuesResultController {
     }
 
     @PostMapping("/api/v1/venues/halfway/top-rated")
-    public List<Venue> findTopRatedVenues(@RequestBody Map<String, String> json) {
+    public List<Place> findTopRatedVenues(@RequestBody Map<String, String> json) {
         String address1 = json.get("address1");
         String address2 = json.get("address2");
         HalfwayVenuesResult venues = halfwayVenuesResultService.getHalfwayVenues(address1, address2);

@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 class GoogleApiRequestTest {
 
     @Test
-    @DisplayName("Test the execution of a Geocoding request, which should store data inside a DataObject")
+    @DisplayName("Test the execution of a Geocoding request")
     void testGeocodingRequestExecute() {
         GeocodingResult[] mockGeocodingResult = {mock(GeocodingResult.class), mock(GeocodingResult.class)};
         GmapsRequest<GeocodingResult> mockRequest = mock(GeocodingGmapsRequest.class);
@@ -32,7 +32,7 @@ class GoogleApiRequestTest {
     }
 
     @Test
-    @DisplayName("Test the execution of a Places Search request, which should store data inside a DataObject")
+    @DisplayName("Test the execution of a Places Search request")
     void testPlacesRequestExecute() {
         PlacesSearchResult[] mockPlacesResult = {mock(PlacesSearchResult.class), mock(PlacesSearchResult.class)};
         GmapsRequest<PlacesSearchResult> mockRequest = mock(PlacesGmapsRequest.class);

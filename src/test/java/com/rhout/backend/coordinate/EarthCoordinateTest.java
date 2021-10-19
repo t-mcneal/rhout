@@ -28,7 +28,7 @@ class EarthCoordinateTest {
     }
 
     @Test
-    @DisplayName("Test equality of two coordinate when false")
+    @DisplayName("Test equality of two coordinates when false")
     void testEqualWhenFalse() {
         Coordinate coordinate2 = new EarthCoordinate(1.5, 4.8);
         assertFalse(coordinate2.equals(coordinate));

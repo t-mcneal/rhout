@@ -26,8 +26,13 @@ public class HalfwayVenuesResultService {
 
     public List<Place> getTopRatedVenues(String address1, String address2, int amount) {
         List<Place> halfwayVenues = buildHalfwayVenues(address1, address2);
+        return topRated(halfwayVenues, amount);
+
+    }
+
+    protected List<Place> topRated(List<Place> halfwayVenues, int amount) {
         if (halfwayVenues.size() == 0) {
-            throw new IllegalStateException("NearbyVenues is an empty list");
+            throw new IllegalArgumentException("NearbyVenues is an empty list");
         } else if (amount <= 0) {
             throw new IllegalArgumentException("Top rated amount must be greater than 0");
         } else if (halfwayVenues.size() < amount) {

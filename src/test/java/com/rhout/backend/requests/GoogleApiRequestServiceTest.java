@@ -27,7 +27,7 @@ class GoogleApiRequestServiceTest {
 
     @BeforeAll
     @SuppressWarnings("unchecked")
-    public static void setup() {
+    static void setup() {
 
         // Mock the Google Config
         GoogleConfig mockGoogleConfig = mock(GoogleConfig.class);

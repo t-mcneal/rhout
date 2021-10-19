@@ -1,7 +1,9 @@
 package com.rhout.backend.requests;
 
 import com.rhout.backend.requests.gmaps.GmapsRequest;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GoogleApiRequest<T>  {
     private GmapsRequest<T> gmapsRequest;
     private DataObject<T> dataObject;

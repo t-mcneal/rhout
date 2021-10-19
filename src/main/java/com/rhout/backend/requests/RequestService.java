@@ -10,4 +10,6 @@ public interface RequestService {
     public Coordinate getCoordinate(String address);
 
     public List<Place> getPlaces(String searchQuery, Coordinate coordinate, int radius);
+
+    public Coordinate calculateMidpoint(Coordinate A, Coordinate B);
 }

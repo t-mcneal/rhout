@@ -2,22 +2,16 @@ package com.rhout.backend.place;
 
 import java.util.*;
 
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.PlacesApi;
-import com.google.maps.model.GeocodingResult;
-import com.google.maps.model.PlacesSearchResult;
-
 import com.rhout.backend.coordinate.Coordinate;
-import com.rhout.backend.coordinate.GoogleCoordinate;
+import com.rhout.backend.coordinate.EarthCoordinate;
 import com.rhout.backend.coordinate.MidpointCalculator;
+import com.rhout.backend.requests.RequestService;
 
 public class HalfwayVenuesResult {
     private final Coordinate coordA;
     private final Coordinate coordB;
     private final Coordinate midpoint;
     private final List<Place> nearbyVenues;
-    private final List<Place> topRatedVenues;
 
     /**
      * @return A {@link com.rhout.backend.coordinate.Coordinate} for the first address
@@ -47,23 +41,16 @@ public class HalfwayVenuesResult {
      */
     public int getNumOfVenues() { return nearbyVenues.size(); }
 
-    /**
-     * @return A {@link java.util.List} containing top rated {@link Place} objects.
-     */
-    public List<Place> getTopRated() { return topRatedVenues; }
-
     private HalfwayVenuesResult(Builder builder) {
         this.coordA = builder.coordA;
         this.coordB = builder.coordB;
         this.midpoint = builder.midpoint;
         this.nearbyVenues = builder.nearbyVenues;
-        this.topRatedVenues = builder.topRatedVenues;
     }
 
     public static class Builder {
-        private final List<Place> nearbyVenues = new ArrayList<>();
-        private final List<Place> topRatedVenues = new ArrayList<>();
-        private final GeoApiContext context;
+        private final RequestService requestService;
+        private List<Place> nearbyVenues;
         private Coordinate coordA;
         private Coordinate coordB;
         private Coordinate midpoint;
@@ -71,17 +58,16 @@ public class HalfwayVenuesResult {
         /**
          * Builder pattern for enclosing halfway venues data.
          *
-         * @param context A {@link com.google.maps.GeoApiContext} object
+         * @param requestService A {@link com.rhout.backend.requests.RequestService} to handle external API requests
          */
-        public Builder(GeoApiContext context) {
-            this.context = context;
+        public Builder(RequestService requestService) {
+            this.requestService = requestService;
         }
 
         /**
          * Creates a {@link com.rhout.backend.coordinate.Coordinate} for each address,
-         * which stores longitude and latitude values queried using
-         * Google Maps {@link com.google.maps.GeocodingApi}.
-         * Then, the {@link com.rhout.backend.coordinate.MidpointCalculator} calculates a midpoint
+         * which contains longitude and latitude values. Then, the
+         * {@link com.rhout.backend.coordinate.MidpointCalculator} calculates a midpoint
          * coordinate to determine a halfway location between these two addresses.
          *
          * @param address1 A postal address (i.e. house number, street name, city, state and zipcode).
@@ -90,23 +76,13 @@ public class HalfwayVenuesResult {
          */
         public Builder buildCoordinates(String address1, String address2) {
             String[] addresses = {address1, address2};
-            Coordinate[] coordinates = new GoogleCoordinate[2];
-            double lat;
-            double lng;
-            try {
-                for (int i = 0; i < addresses.length; i++) {
-                    GeocodingResult[] results = GeocodingApi.geocode(this.context, addresses[i]).await();
-                    lat = results[0].geometry.location.lat;
-                    lng = results[0].geometry.location.lng;
-                    coordinates[i] = new GoogleCoordinate(lat, lng);
-                }
-            } catch (Exception e) {
-                throw new IllegalArgumentException(e);
+            Coordinate[] coordinates = new Coordinate[2];
+            for (int i = 0; i < addresses.length; i++) {
+                coordinates[i] = requestService.getCoordinate(addresses[i]);
             }
             this.coordA = coordinates[0];
             this.coordB = coordinates[1];
-            Map<String, Double> midpoint = MidpointCalculator.calculate(this.coordA, this.coordB);
-            this.midpoint = new GoogleCoordinate(midpoint.get("latitude"), midpoint.get("longitude"));
+            this.midpoint = requestService.calculateMidpoint(this.coordA, this.coordB);
             return this;
         }
 
@@ -121,53 +97,9 @@ public class HalfwayVenuesResult {
          */
         public Builder findNearbyVenues(String searchQuery) {
             if (this.midpoint == null) {
-                throw new IllegalStateException("Must calculate midpoint before finding nearby venues.");
+                throw new IllegalStateException("Must calculate midpoint before finding nearby venues");
             }
-            try {
-                // search venues near midpoint coordinate
-                PlacesSearchResult[] placesResults = PlacesApi.textSearchQuery(this.context,
-                        searchQuery, (GoogleCoordinate) this.midpoint)
-                        .radius(1600)
-                        .await()
-                        .results;
-
-                // create list of place objects based on search JSON results
-                for (PlacesSearchResult venue : placesResults) {
-                    if (venue.businessStatus.equals("OPERATIONAL")) {
-                        this.nearbyVenues.add(new Venue(venue.placeId,
-                                venue.name,
-                                venue.formattedAddress,
-                                venue.rating));
-                    }
-                }
-            } catch(Exception e) {
-                throw new IllegalArgumentException(e);
-            }
-            return this;
-        }
-
-        /**
-         * Finds this amount of top rated venues among the halfway venues.
-         *
-         * @param amount The amount of top rated venues to find.
-         * @return Returns this {@code HalfwayVenuesBuilder} for call chaining.
-         */
-        public Builder topRated(int amount) {
-            if (this.nearbyVenues.size() == 0) {
-                throw new IllegalStateException("Must find nearby venues before building top rated venues.");
-            } else if (amount <= 0) {
-                throw new IllegalArgumentException("Top rated amount must be greater than 0.");
-            } else if (this.nearbyVenues.size() < amount) {
-                throw new IllegalArgumentException("Number of total halfway venues is " +
-                        this.nearbyVenues.size() + ", which is less than a top rated amount of " + amount);
-            }
-            PriorityQueue<Venue> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
-            for (Place venue : this.nearbyVenues) {
-                maxHeap.add((Venue) venue);
-            }
-            for (int i = 0; i < amount; i++) {
-                this.topRatedVenues.add(maxHeap.remove());
-            }
+            this.nearbyVenues = requestService.getPlaces(searchQuery, midpoint, 1600);
             return this;
         }
 
@@ -177,9 +109,8 @@ public class HalfwayVenuesResult {
          * @return Returns the built {@code HalfwayVenuesResult}.
          */
         public HalfwayVenuesResult build() {
-            if (this.midpoint == null || this.nearbyVenues.size() == 0 || this.topRatedVenues.size() == 0)
-                throw new IllegalStateException("The HalfwayVenueResult object was not built properly." +
-                        " Make sure all HalfwayVenuesBuilder methods were called during method chaining.");
+            if (this.midpoint == null || this.nearbyVenues.size() == 0)
+                throw new IllegalStateException("The HalfwayVenueResult object was not built properly");
             return new HalfwayVenuesResult(this);
         }
     }

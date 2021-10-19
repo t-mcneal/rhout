@@ -5,7 +5,7 @@ package com.rhout.backend.coordinate;
  */
 public interface Coordinate {
 
-    public double getLatitude();
+    double getLatitude();
 
-    public double getLongitude();
+    double getLongitude();
 }

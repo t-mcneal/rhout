@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface RequestService {
 
-    public Coordinate getCoordinate(String address);
+    Coordinate getCoordinate(String address);
 
-    public List<Place> getPlaces(String searchQuery, Coordinate coordinate, int radius);
+    List<Place> getPlaces(String searchQuery, Coordinate coordinate, int radius);
 
-    public Coordinate calculateMidpoint(Coordinate A, Coordinate B);
+    Coordinate calculateMidpoint(Coordinate A, Coordinate B);
 }

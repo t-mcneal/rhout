@@ -3,18 +3,17 @@ package com.rhout.backend.place;
 
 public interface Place {
 
-    public String getId();
+    String getId();
 
-    public String getName();
+    String getName();
 
-    public String getAddress();
+    String getAddress();
 
-    public double getRating();
+    double getRating();
 
-    public void setName(String newName);
+    void setName(String newName);
 
-    public void setAddress(String newAddress);
+    void setAddress(String newAddress);
 
-    public void setRating(double newRating);
-
+    void setRating(double newRating);
 }

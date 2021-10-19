@@ -23,7 +23,7 @@ public class HalfwayVenuesResultService {
     public List<Place> getHalfwayVenues(String address1, String address2) {
         HalfwayVenuesResult halfwayVenues = new HalfwayVenuesResult.Builder(requestService)
                 .buildCoordinates(address1, address2)
-                .findNearbyVenues("music venues")
+                .findNearbyVenues("music venues", 1600)
                 .build();
         return halfwayVenues.getVenues();
     }
@@ -31,7 +31,7 @@ public class HalfwayVenuesResultService {
     public List<Place> getTopRatedVenues(String address1, String address2, int amount) {
         HalfwayVenuesResult halfwayVenues = new HalfwayVenuesResult.Builder(requestService)
                 .buildCoordinates(address1, address2)
-                .findNearbyVenues("music venues")
+                .findNearbyVenues("music venues", 1600)
                 .build();
         return getTopRated(halfwayVenues.getVenues(), amount);
     }

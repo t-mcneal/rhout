@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GoogleCoordinateTest {
-    Coordinate coordinate = coordinate = new GoogleCoordinate(1.5, 2.5);
+    Coordinate coordinate = new GoogleCoordinate(1.5, 2.5);
 
     @Test
     @DisplayName("Test getting latitude of a coordinate")

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EarthCoordinateTest {
-    Coordinate coordinate = coordinate = new EarthCoordinate(1.5, 2.5);
+    Coordinate coordinate = new EarthCoordinate(1.5, 2.5);
 
     @Test
     @DisplayName("Test getting latitude of a coordinate")

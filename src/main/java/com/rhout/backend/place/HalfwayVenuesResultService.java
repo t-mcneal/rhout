@@ -21,32 +21,21 @@ public class HalfwayVenuesResultService {
     }
 
     public List<Place> getHalfwayVenues(String address1, String address2) {
-        HalfwayVenuesResult halfwayVenues = new HalfwayVenuesResult.Builder(requestService)
-                .buildCoordinates(address1, address2)
-                .findNearbyVenues("music venues", 1600)
-                .build();
-        return halfwayVenues.getVenues();
+        return buildHalfwayVenues(address1, address2);
     }
 
     public List<Place> getTopRatedVenues(String address1, String address2, int amount) {
-        HalfwayVenuesResult halfwayVenues = new HalfwayVenuesResult.Builder(requestService)
-                .buildCoordinates(address1, address2)
-                .findNearbyVenues("music venues", 1600)
-                .build();
-        return getTopRated(halfwayVenues.getVenues(), amount);
-    }
-
-    private List<Place> getTopRated(List<Place> nearbyVenues, int amount) {
-        if (nearbyVenues.size() == 0) {
+        List<Place> halfwayVenues = buildHalfwayVenues(address1, address2);
+        if (halfwayVenues.size() == 0) {
             throw new IllegalStateException("NearbyVenues is an empty list");
         } else if (amount <= 0) {
             throw new IllegalArgumentException("Top rated amount must be greater than 0");
-        } else if (nearbyVenues.size() < amount) {
+        } else if (halfwayVenues.size() < amount) {
             throw new IllegalArgumentException("Number of nearby venues is less than top rated amount");
         } else {
             ArrayList<Place> topRatedVenues = new ArrayList<>();
             PriorityQueue<Venue> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
-            for (Place venue : nearbyVenues) {
+            for (Place venue : halfwayVenues) {
                 maxHeap.add((Venue) venue);
             }
             for (int i = 0; i < amount; i++) {
@@ -54,5 +43,13 @@ public class HalfwayVenuesResultService {
             }
             return topRatedVenues;
         }
+    }
+
+    private List<Place> buildHalfwayVenues(String address1, String address2) {
+        HalfwayVenuesResult halfwayVenues = new HalfwayVenuesResult.Builder(requestService)
+                .buildCoordinates(address1, address2)
+                .findNearbyVenues("music club", 1600)
+                .build();
+        return halfwayVenues.getVenues();
     }
 }

@@ -44,6 +44,10 @@ class HalfwayVenuesResultServiceTest {
         HalfwayVenuesResultService service = new HalfwayVenuesResultService(mockRequestService);
 
         List<Place> halfwayVenues = service.getHalfwayVenues("111 Fake Address", "222 Fake Address");
+        verify(mockRequestService, times(2)).getCoordinate(any(String.class));
+        verify(mockRequestService).calculateMidpoint(any(Coordinate.class), any(Coordinate.class));
+        verify(mockRequestService).getPlaces(any(String.class), any(Coordinate.class), any(int.class));
+
         assertEquals(places, halfwayVenues);
     }
 

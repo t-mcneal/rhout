@@ -6,9 +6,9 @@ and Google Maps API.
 
 ## Table of Contents
 
-* [Installation](https://github.com/t-mcneal/rhout/blob/master/README.md#installation)
-* [Usage](https://github.com/t-mcneal/rhout/blob/master/README.md#usage)
-* [Demo](https://github.com/t-mcneal/rhout/blob/master/README.md#demo)
+* [Installation](https://github.com/t-mcneal/rhout/blob/main/README.md#installation)
+* [Usage](https://github.com/t-mcneal/rhout/blob/main/README.md#usage)
+* [Demo](https://github.com/t-mcneal/rhout/blob/main/README.md#demo)
 
 
 ## Installation
@@ -65,12 +65,12 @@ command line.
 
 Click this [link](https://youtu.be/0zG4X2-0jjU) to watch a demo.
 
-![Rhout Screenshot](https://github.com/t-mcneal/rhout/blob/master/readmeimages/rhout_screenshot.png)
+![Rhout Screenshot](https://github.com/t-mcneal/rhout/blob/main/readmeimages/rhout_screenshot.png)
 
 
 ## License
 
-[MIT](https://github.com/t-mcneal/rhout/blob/master/LICENSE)
+[MIT](https://github.com/t-mcneal/rhout/blob/main/LICENSE)
 
 
 

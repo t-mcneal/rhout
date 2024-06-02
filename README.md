@@ -27,7 +27,7 @@ and Google Maps API.
 3. **Add an API Key**
    
    An API key is needed to access Google Maps API. Visit [Google Maps Platform](https://developers.google.com/maps) 
-   to set up an account and API key. Then, create an `apikey.properties` file in the 
+   to set up an account and API key. Then, create an `MapApiKey.properties` file in the 
    project's root directory. Add the text below to the file, replacing `API_KEY` with a
    Google Maps API key, and save the file. 
    
@@ -35,7 +35,7 @@ and Google Maps API.
    GMAP_KEY = API_KEY
    ```
 
-   Make sure to include the `apikey.properties` file in `.gitignore` to secure 
+   Make sure to include the `MapApiKey.properties` file in `.gitignore` to secure 
    your API key from version control.
    
 ## Usage

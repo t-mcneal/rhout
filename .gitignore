@@ -37,6 +37,6 @@ out/
 .vscode/
 
 ### API KEY ###
-apikey.properties
+MapApiKey.properties
 
 

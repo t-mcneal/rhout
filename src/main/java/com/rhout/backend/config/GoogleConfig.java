@@ -14,7 +14,7 @@ public class GoogleConfig {
     private final GeoApiContext context;
 
     public GoogleConfig() {
-        Properties props = PropertiesReader.readFile("apikey.properties");
+        Properties props = PropertiesReader.readFile("MapApiKey.properties");
         this.context = new GeoApiContext.Builder()
                 .apiKey(props.getProperty("GMAP_KEY"))
                 .build();

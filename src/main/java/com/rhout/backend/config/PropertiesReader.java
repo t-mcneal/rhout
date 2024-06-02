@@ -16,7 +16,7 @@ public final class PropertiesReader {
             prop.load(fis);
             fis.close();
         } catch(IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e.getMessage());
         }
         return prop;
     }

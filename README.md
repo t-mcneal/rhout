@@ -50,10 +50,10 @@ command line.
 
    **Frontend**
 
-   Open a second command line window. Then, navigate to the project directory `/src/main/frontend` 
+   Open a second command line window. Then, navigate to the project directory `/ui`
    and enter the following:
    ```
-   $ npm install
+   $ npm ci
    $ npm start
    ```
    

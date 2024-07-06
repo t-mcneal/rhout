@@ -35,7 +35,7 @@ and Google Maps API.
    GMAP_KEY = API_KEY
    ```
 
-   Make sure to include the `MapApiKey.properties` file in `.gitignore` to secure 
+   The `MapApiKey.properties` file is included in the `.gitignore` to secure 
    your API key from version control.
    
 ## Usage
